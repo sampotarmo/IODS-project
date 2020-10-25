@@ -15,3 +15,5 @@ date()
 Onneksi en tehnyt tätä työkoneella, sillä ohjelmia piti ladata ja päivittää reilusti.
 
 Olen aikaisemmin suorittanut R-kurssin, joka oli samanmuotoinen kuin tälläkin kurssilla. Tämä ei ole nähdäkseni paras mahdollinen tapa (tai edes lähellä sitä!) opettaa R:ää. Ensinnäkin sanasto on uutta ja funktioiden kutsuminen "on something" ei aukene itsestään. Mahdollisesti tästä syystä palautteita oli vaikea ymmärtää eivätkä ne näin ollen auttaneet tehtävissä eteenpäin.
+
+Toisaalta kurssin ohjeetkaan eivät auenneet täysin aukottomasti, ainakaan tässä vaiheessa.
