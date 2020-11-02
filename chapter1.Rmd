@@ -9,14 +9,21 @@ date()
 
 I'm glad I didn't do this course on my work computer. At first there was a quite much to download, intall and update.
 
-I've been using R sporadically. I learn a bit, use it for a while and then forget the whole thing. The most difficult thing with R for me has been the data wrangling. 
+I've been using R sporadically. I learn a bit, use it for a while and then forget the whole thing. And once again I have to start from zero. The most difficult thing with R for me has been the data wrangling. So I'm quite excited for the possibility to finally tackle this problem!
 
-The following is in finnish. I wrote it before the instructions. Please, forgive me :)
+Few useful links
+* 1. [Markdown basics](https://rmarkdown.rstudio.com/lesson-1.html)
+* 2. [R Community](https://www.r-statistics.com/tag/r-community/)
+* 3. [Rpubs](https://rpubs.com/)
 
+Apparently, as seen above, you can not put links to lists. At least not in a normal way:
 
+`* list 1` \
+`* list 2` \
+`* list 3`
 
-Onneksi en tehnyt tätä työkoneella, sillä ohjelmia piti ladata ja päivittää reilusti.
+..which would end up as:
 
-Olen aikaisemmin suorittanut R-kurssin, joka oli samanmuotoinen kuin tälläkin kurssilla. Tämä ei ole nähdäkseni paras mahdollinen tapa (tai edes lähellä sitä!) opettaa R:ää. Ensinnäkin sanasto on uutta ja funktioiden kutsuminen "on something" ei aukene itsestään. Mahdollisesti tästä syystä palautteita oli vaikea ymmärtää eivätkä ne näin ollen auttaneet tehtävissä eteenpäin.
-
-Toisaalta kurssin ohjeetkaan eivät auenneet täysin aukottomasti, ainakaan tässä vaiheessa.
+* list 1
+* list 2
+* list 3
