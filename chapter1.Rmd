@@ -1,5 +1,5 @@
 
-# Samuli's IODS adventure!
+# Part 1. Samuli's IODS adventure!
 
 *[Link to my repository](https://github.com/sampotarmo/IODS-project)
 

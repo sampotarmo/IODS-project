@@ -1,4 +1,4 @@
-# The adventure continues!
+# Part 2. The adventure continues by regression!
 
 ```{r}
 date()
