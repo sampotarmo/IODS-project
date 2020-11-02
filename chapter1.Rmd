@@ -3,7 +3,7 @@
 
 *Write a short description about the course and add a link to your GitHub repository here. This is an R Markdown (.Rmd) file so you should use R Markdown syntax.*
 
-*https://github.com/sampotarmo/IODS-project
+*[Link to my repository](https://github.com/sampotarmo/IODS-project)
 
 ```{r}
 date()
@@ -14,3 +14,5 @@ Onneksi en tehnyt tätä työkoneella, sillä ohjelmia piti ladata ja päivittä
 Olen aikaisemmin suorittanut R-kurssin, joka oli samanmuotoinen kuin tälläkin kurssilla. Tämä ei ole nähdäkseni paras mahdollinen tapa (tai edes lähellä sitä!) opettaa R:ää. Ensinnäkin sanasto on uutta ja funktioiden kutsuminen "on something" ei aukene itsestään. Mahdollisesti tästä syystä palautteita oli vaikea ymmärtää eivätkä ne näin ollen auttaneet tehtävissä eteenpäin.
 
 Toisaalta kurssin ohjeetkaan eivät auenneet täysin aukottomasti, ainakaan tässä vaiheessa.
+
+"After completing the tasks above you are ready to submit your exercise for the peer-review (using the MOOC Workshop below). Have the two links (your GitHub repository and your course diary) ready!"
