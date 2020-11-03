@@ -29,7 +29,7 @@ dataset <- select(data, one_of(analysis))
 # Checking the structure of analysis data set
 str(analysis)
 
-# 183 observations and 7 variables. All is good!
+# YAY! 183 observations and 7 variables. All is good!
 
 # Setting working directory
 setwd("C:/Users/Samuli/OneDrive/Tilastotiede/Open data/IODS-project")
@@ -43,4 +43,4 @@ str(dataset2)
 head(dataset)
 head(dataset2)
 
-# All checks out!
+# Everything seems to be in order.
