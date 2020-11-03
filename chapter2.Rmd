@@ -1,12 +1,59 @@
 # Part 2. The adventure continues by regression!
 
 ```{r}
-date()
+learning <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt", sep = ",", header = T)
+str(learning)
+
+```
+The data comes from a survey that was carried out in Finland and has something to do with learning. The data seems to be identical with the data we made in data wrangling exercise. This, too,  contains 166 observations and seven variables, two of which are background variables age and gender. Points is points from an exam. What kind of an exam and where, the legend doesn't tell. Variable "attitude" is respondents attitude towards statistics. I found no key how to interpret the scale, but it varies from 1.4 to 5. The last three are sum variables that measures a latent features deep, surface and strategic learning.
+
+```{r}
+invisible(library(GGally))
+invisible(library(ggplot2))
+ggpairs(learning, mapping = aes(col = gender, alpha = 0.5), lower = list(combo = wrap("facethist", bins = 20)))
 ```
 
-*Describe the work you have done this week and summarize your learning.*
+The data is summarised in the picture above. At first glance there seems to **a lot** going on. Let's tackle the descriptive statistics first (`describe` from package `Hmisc`). There's 110 women and 56 men. The mean age of respondents is 25.5 years, men being a little older than women. Men's attitude towards statistics is visibly more positive than women's.
 
-- Describe your work and results clearly. 
-- Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods.
-- Assume the reader has no previous knowledge of your data or the more advanced methods you are using.
+More interesting stuff is shown in correlation matrices. From there we can gather that positive attitude towards statistics is related to better points in exam and the effect is quite similar between genders. Surface learning and deep learning have quite a strong negative correlation within men, but almost none within women. It seems that surface learning is off from deep learning and vice versa.
 
+### Regression
+
+I thought that the points _should_ depend on learning and attitude. According to this, the first model I fitted included attitude, deep learning and strategic learning as independent variables. From the legend provided by 
+Kimmo, I gathered that deep and strategic learning are better than surface learning in some ways. They focus more on learning than passing the class.
+
+```{r}
+mod1 <- lm(points ~ attitude + deep + stra, data = learning)
+summary(mod1)
+```
+
+The statistical test of intercept has following hypotheses:
+
+H0: intercept is 0 \
+Ha: intercept is not 0
+
+Usually the intercept is *not* the subject of interest. It simply tells the value of the depending variable when all the independent variables are zero (disregarding the measurement error). What's more interesting are the regression estimates for the independent variables. The hypotheses concerning the regression slope estimates for each variable are:
+
+H0: regression slope is 0 (when all other independent variables are controlled) \
+Ha: regression slope is not 0 (when all other independent variables are controlled)
+
+The p value tells us the propability of getting equal or more extreme results *if* the null hypothesis is true. So, in this case we can conclude that only attitude has a regression slope differing from zero. As instructed, we now remove the two non-significant variables from the model.
+
+```{r}
+mod3 <- lm(points ~ attitude, data = learning)
+summary(mod3)
+```
+
+Attitude towards statistics seems to have positive effect on points. At this point, I can only assume the exam has something to do with statistics. The interpretation for the regression slope is as follows:
+
+When attitude increase by one, exam points increase by approximately 3.5
+
+From the table above we can see that the R-squared for this model is 0.1856. This means the attitude "explains" almost 19 percent of the variance of points. In other words, other factors explain more than four fifths of the variance of the points.
+
+#### Diagnostics
+
+Now, let's turn to diagnostics of the model. Does it fit the assumptions of linear regression? Does it fit the data?
+
+```{r}
+plot(mod3, which = c(1, 2, 5))
+```
