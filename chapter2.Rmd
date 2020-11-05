@@ -3,8 +3,8 @@
 ```{r}
 learning <- read.table("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/learning2014.txt", sep = ",", header = T)
 str(learning)
-
 ```
+
 The data comes from a survey that was carried out in Finland and has something to do with learning. The data seems to be identical with the data we made in data wrangling exercise. This, too,  contains 166 observations and seven variables, two of which are background variables age and gender. Points is points from an exam. What kind of an exam and where, the legend doesn't tell. Variable "attitude" is respondents attitude towards statistics. I found no key how to interpret the scale, but it varies from 1.4 to 5. The last three are sum variables that measures a latent features deep, surface and strategic learning.
 
 ```{r}
@@ -50,10 +50,30 @@ When attitude increase by one, exam points increase by approximately 3.5
 
 From the table above we can see that the R-squared for this model is 0.1856. This means the attitude "explains" almost 19 percent of the variance of points. In other words, other factors explain more than four fifths of the variance of the points.
 
-#### Diagnostics
+### Diagnostics
 
-Now, let's turn to diagnostics of the model. Does it fit the assumptions of linear regression? Does it fit the data?
+Now, let's turn to diagnostics of the model. Does the model meet the assumptions of linear regression? Does it fit the data?
+
+There are many assumptions in linear regression. One of these is the *homoscedasticity* or constant variance. This means that the error has same variance regardless of the values of the independent variables. This can be checked using scatter plot of residuals and predicted values:
 
 ```{r}
-plot(mod3, which = c(1, 2, 5))
+plot(mod3, which = c(1))
 ```
+
+What we *want* to see in the plot is that the errors aren't "fanning out". In the plot above, we can see that this holds true, excluding the few numbered errors at the bottom.
+
+The second assumption is the normal distribution of errors. This can be checked with a QQ-plot:
+
+```{r}
+plot(mod3, which = c(2))
+```
+
+Here we want to see if the points set on the straight line which would indicate the normal distribution of the errors. In this case, they set quite nicely on the line. One should notice that inspection is purely visual. Hence, the decision is rather subjective.
+
+The last diagnostics is to see if any of the observations have too much leverage power. This means that appropriately placed observation(s) could "pull in" the regression slope. In the plot below we can see there's only few observations that can be considered as potential outliers with too much leverage. Here too, the decision is based on visual interpretation and to my eye these few observations aren't alarming.
+
+```{r}
+plot(mod3, which = c(5))
+```
+
+Overall the model seems to fit quite nicely and doesn't violate the assumptions. We can conclude (setting the causality aside) that positive attitude towards statistics leads to better performance in exams.
