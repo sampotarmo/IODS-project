@@ -1,0 +1,4 @@
+# Part 3. Regression, logistic regression
+
+In the last two parts I didn't reflect on my learning. The main reason for this is that I didn't read the instructions carefully enough and didn't know I had to do it. This rash style of working can also be seen in the quality of the exercises. All in all, I hope I learned lesson here and be more precise in the future exercises. That said, let's continue to the logistic regression!
+

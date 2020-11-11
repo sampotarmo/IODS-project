@@ -7,9 +7,9 @@ str(learning)
 
 The data comes from a survey that was carried out in Finland and has something to do with learning. The data seems to be identical with the data we made in data wrangling exercise. This, too,  contains 166 observations and seven variables, two of which are background variables age and gender. Points is points from an exam. What kind of an exam and where, the legend doesn't tell. Variable "attitude" is respondents attitude towards statistics. I found no key how to interpret the scale, but it varies from 1.4 to 5. The last three are sum variables that measures a latent features deep, surface and strategic learning.
 
-```{r}
-invisible(library(GGally))
-invisible(library(ggplot2))
+```{r, echo=FALSE}
+library(GGally)
+library(ggplot2)
 ggpairs(learning, mapping = aes(col = gender, alpha = 0.5), lower = list(combo = wrap("facethist", bins = 20)))
 ```
 
