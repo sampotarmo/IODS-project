@@ -31,13 +31,51 @@ alc_data <- select(alc, one_of(variables))
 ```
 
 Let's examine the relationship of gender and high use first. In the following plot we can see that boys are more likely to be high users.
+
 ```{r}
 ggplot(alc_data, aes(high_use, color = sex, fill = sex)) + geom_bar(aes(y = ..prop.., group = 1)) + facet_wrap(~sex)
 ```
 
-4. Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots). Comment on your findings and compare the results of your exploration to your previously stated hypotheses. 
+```{r}
+ggplot(alc_data, aes(high_use, famrel)) + geom_boxplot()
+```
 
-5. Use logistic regression to statistically explore the relationship between your chosen variables and the binary high/low alcohol consumption variable as the target variable. Present and interpret a summary of the fitted model. Present and interpret the coefficients of the model as odds ratios and provide confidence intervals for them. Interpret the results and compare them to your previously stated hypothesis. Hint: If your model includes factor variables see for example the first answer of this stackexchange thread on how R treats and how you should interpret these variables in the model output (or use some other resource to study this). (0-5 points)
+In the plot above we can see that students who aren't classified as high users has better relationships with family. In the next plot there's a clear trend which indicates that students who go out with friends are prone to be high user.
+
+```{r}
+ggplot(alc_data, aes(high_use, goout)) + geom_boxplot()
+```
+
+Let's check the last hypothesis regarding parents' living arrangements. The table below shows that the percentages are almost evenly split ant therefore there is no effect whatsoever.
+
+```{r}
+table <- table(alc_data$Pstatus, alc_data$high_use)
+prop.table(table, 1)
+```
+Based on this brief examination three out of four hypotheses seem to be correct. However, these are just preliminary observations. Let's make logistic regression model and see whether the hypotheses stand!
+
+```{r}
+m1 <- glm(high_use ~ sex + famrel + goout + Pstatus, data = alc_data, family = "binomial")
+summary(m1)
+
+OR <- coef(m1) %>% exp
+CI <- confint(m1) %>% exp
+cbind(OR, CI)
+```
+The results indicate that the previous interpretation was correct. The same three hypotheses seem to hold true. Males are 2.5 times more likely to belong to high users. Going out with friends also increases the probability to be a high user. For every one point increase in the outgoing variable, the probality of being a high user more than doubles! On the other hand, good relations with family seems to protect against being a high user. Probability for being a high user drops one thirds for every one point increase in relationship variable. Parents' living arrangements does not have an effect on being a high user.
+
+```{r}
+m2 <- glm(high_use ~ sex + famrel + goout, data = alc_data, family = "binomial")
+probabilities <- predict(m2, type = "response")
+alc_data <- mutate(alc_data, probability = probabilities)
+alc_data <- mutate(alc_data, prediction = probability > 0.5)
+table(high_use = alc_data$high_use, prediction = alc_data$prediction)
+```
+
+
+
+
+
 
 6. Using the variables which, according to your logistic regression model, had a statistical relationship with high/low alcohol consumption, explore the predictive power of you model. Provide a 2x2 cross tabulation of predictions versus the actual values and optionally display a graphic visualizing both the actual values and the predictions. Compute the total proportion of inaccurately classified individuals (= the training error) and comment on all the results. Compare the performance of the model with performance achieved by some simple guessing strategy. (0-3 points)
 
