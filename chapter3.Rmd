@@ -1,16 +1,39 @@
+***
+
 # Part 3. Regression, logistic regression
+
+***
 
 In the last two parts I didn't reflect on my learning. The main reason for this is that I didn't read the instructions carefully enough and didn't know I had to do it. This rash style of working can also be seen in the quality of the exercises. All in all, I hope I learned lesson here and be more precise in the future exercises. That said, let's continue to the logistic regression!
 
-1. Create a new R Markdown file and save it as an empty file named 'chapter3.Rmd'. Then include the file as a child file in your 'index.Rmd' file (similarily to 'chapter1.Rmd' and 'chapter2.Rmd'). Perform the following analysis in the chapter3.Rmd file.
+### Logistic regression
 
-2. Read the joined student alcohol consumption data into R either from your local folder (if you completed the Data Wrangling part) or from this url: 
-  
-  http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/alc.txt 
+```{r}
+alc <- read.csv("./data/alc_data.csv", sep = ",")
+library(dplyr)
+library(GGally)
+library(ggplot2)
+str(alc)
+```
 
-(In the linked file, the column separator is a comma and the first row includes the column names).  Print out the names of the variables in the data and describe the data set briefly, assuming the reader has no previous knowledge of it. There is information related to the data here. (0-1 point)
+The data is from 382 students in Portugal or Spain, judging from the names of the schools. It consists of 35 variables. There's social variables such as gender, age and parents education. Then there's variables related to school, such as study time and grade points from two different courses, math and portugese. Finally there's a bunch of variables that deals with personal life of students. These include variables like relationship with family, does one have a romantic partner and so on.
 
-3. The purpose of your analysis is to study the relationships between high/low alcohol consumption and some of the other variables in the data. To do this, choose 4 interesting variables in the data and for each of them, present your personal hypothesis about their relationships with alcohol consumption. (0-1 point)
+Students answered two questions regarding their alcohol use. First one is their alcohol use in working days and the another one is alcohol use in weekends. Both are on Likert scale from very low (1) to very high (5). Student was considered a high user if the mean of these two variables were more than 2. I'm interested in what leads to high alcohol use. The hypotheses are as follows:
+
+* H1: Male gender is associated with higher probability to be high user
+* H2: Better relationships with family decreases the probability of high use
+* H3: Going out with friends increases the probability to be high user
+* H4: Parents living apart predispose to high use
+
+```{r}
+variables <- c("high_use", "sex", "famrel", "goout", "Pstatus")
+alc_data <- select(alc, one_of(variables))
+```
+
+Let's examine the relationship of gender and high use first. In the following plot we can see that boys are more likely to be high users.
+```{r}
+ggplot(alc_data, aes(high_use, color = sex, fill = sex)) + geom_bar(aes(y = ..prop.., group = 1)) + facet_wrap(~sex)
+```
 
 4. Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots). Comment on your findings and compare the results of your exploration to your previously stated hypotheses. 
 
