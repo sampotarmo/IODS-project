@@ -70,15 +70,26 @@ probabilities <- predict(m2, type = "response")
 alc_data <- mutate(alc_data, probability = probabilities)
 alc_data <- mutate(alc_data, prediction = probability > 0.5)
 table(high_use = alc_data$high_use, prediction = alc_data$prediction)
+ggplot(alc_data, aes(probability, high_use, col = prediction)) + geom_point()
 ```
 
+From the table above we can calculate the total proportion of right and wrong predictions. Total proportion on right answers (p) is 78.8 percent. Hence, the total wrong predictions are 1-p = 21.2 percent. The plot shows the thing but atleast for me it's more difficult to interpret.
 
+```{r}
+loss_func <- function(class, prob) {
+  n_wrong <- abs(class - prob) > 0.5
+  mean(n_wrong)
+}
+loss_func(class = alc_data$high_use, prob = alc_data$probability)
+```
 
+The number above represents the average *wrong* predictions. By guessing the probability of right or wrong answer should be around 0.5, so we can conclude that the model is better than a sheer guess.
 
+The next chuck performs a 10-fold cross validation. What it does, tt divides the data in ten chunks of data, uses 9 parts of them to "train" the model and tests the model with the remaining part of the data. It repeats this process nine more times changing the test chunk.
 
-
-6. Using the variables which, according to your logistic regression model, had a statistical relationship with high/low alcohol consumption, explore the predictive power of you model. Provide a 2x2 cross tabulation of predictions versus the actual values and optionally display a graphic visualizing both the actual values and the predictions. Compute the total proportion of inaccurately classified individuals (= the training error) and comment on all the results. Compare the performance of the model with performance achieved by some simple guessing strategy. (0-3 points)
-
-7. Bonus: Perform 10-fold cross-validation on your model. Does your model have better test set performance (smaller prediction error using 10-fold cross-validation) compared to the model introduced in DataCamp (which had about 0.26 error). Could you find such a model? (0-2 points to compensate any loss of points from the above exercises)
-
-8. Super-Bonus: Perform cross-validation to compare the performance of different logistic regression models (= different sets of predictors). Start with a very high number of predictors and explore the changes in the training and testing errors as you move to models with less predictors. Draw a graph displaying the trends of both training and testing errors by the number of predictors in the model. (0-4 points to compensate any loss of points from the above exercises)
+```{r}
+library(boot)
+cv <- cv.glm(data = alc_data, cost = loss_func, glmfit = m2, K = 10)
+cv$delta[1]
+```
+If I got it right, the number above is the *mean prediction error* for the ten sets of validation. It seems to work a little worse than the original model, but somewhat better than the model in Datacamp.
