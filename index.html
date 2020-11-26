@@ -448,7 +448,7 @@ summary {
 <hr />
 <p>*<a href="https://github.com/sampotarmo/IODS-project">Link to my repository</a></p>
 <pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Fri Nov 13 23:08:16 2020&quot;</code></pre>
+<pre><code>## [1] &quot;Wed Nov 25 21:32:57 2020&quot;</code></pre>
 <p>I’m glad I didn’t do this course on my work computer. At first there was a quite much to download, intall and update.</p>
 <p>I’ve been using R sporadically. I learn a bit, use it for a while and then forget the whole thing. And once again I have to start from zero. The most difficult thing with R for me has been the data wrangling. So I’m quite excited for the possibility to finally tackle this problem!</p>
 <p>Few useful links * 1. <a href="https://rmarkdown.rstudio.com/lesson-1.html">Markdown basics</a> * 2. <a href="https://www.r-statistics.com/tag/r-community/">R Community</a> * 3. <a href="https://rpubs.com/">Rpubs</a></p>
@@ -704,8 +704,9 @@ loss_func(class = alc_data$high_use, prob = alc_data$probability)</code></pre>
 <pre class="r"><code>library(boot)
 cv &lt;- cv.glm(data = alc_data, cost = loss_func, glmfit = m2, K = 10)
 cv$delta[1]</code></pre>
-<pre><code>## [1] 0.2356021</code></pre>
+<pre><code>## [1] 0.2277487</code></pre>
 <p>If I got it right, the number above is the <em>mean prediction error</em> for the ten sets of validation. It seems to work a little worse than the original model, but somewhat better than the model in Datacamp.</p>
+<p>Shit! I forgot!</p>
 </div>
 </div>
 
