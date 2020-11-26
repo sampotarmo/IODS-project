@@ -26,5 +26,6 @@ rownames(human2) <- human2$Country
 # Let's check the data! There _should_ be 155 observations and 9 variables.
 
 dim(human2)
+write.table(human2, "./data/human.csv")
 
 # Hooray! The data is ready for analysis!

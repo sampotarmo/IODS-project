@@ -5,5 +5,51 @@
 ***
 
 ```{r}
-
+human2 <- read.table("./data/human.csv")
 ```
+
+### Exploring the data
+
+```{r}
+library(ggplot2)
+library(GGally)
+str(human2)
+summary(human2)
+```
+
+The data is from UNDP (United Nations Development Programme) and consists of 9 variables of which 8 are numerical. The variables are part of human development index (HDI) which measures the quality of the countries.
+
+The variables includes measures of health and knowledge like GNI and life expectancy. These are accompanied by measures of (female?) empowerment like percentage of female representatives in country's parliament.
+
+```{r}
+ggpairs(human2[-1], mapping = aes(alpha = 0.5), progress = F, upper = list(continuous = wrap("cor", size = 3))) + theme_light()
+```
+
+Almost all of the variables correlate with each other in a statistically significant way. There's no need nor space to address all of these, but let's check some of them! The strongest correlation (r = -.857) is between life expectancy and maternal mortality ratio. This is a no-brainer as maternal deaths also decrease the life expectancy. The second strongest correlation (r = .759) can be found between maternal mortality rate and adolescent birth rate. So, the bigger the maternal mortality rate the bigger the rate of adolescent birth rates. This is quite logical: when more birthers die, that leaves bigger proportion of adolescents remaining. Let's see if can get a nice two-factor solution!
+
+### Dimension reduction
+
+```{r}
+m1 <- prcomp(human2[-1])
+summary(m1)
+biplot(m1, cex = c(0.7, 1), choices = 1:2)
+```
+
+Nope! Not even close. The model "explains" almost none of the overall variance in the variables. This is because GNI's variance is so big (`r var(human2$GNI)`!) it trumps all other variables.
+
+In order to make it work, we need to standardize the variables. This means that the variables are transformed so that their mean is zero and variance is 1:
+
+$X_{std} = \frac {x_i - \overline{X}}{var(X)}$
+
+Let's see if gets any better!
+
+```{r}
+humanstd <- scale(human2[-1])
+m2 <- prcomp(humanstd)
+summary(m2)
+biplot(m2, cex = c(0.5, 0.8), choices = 1:2)
+```
+
+### Results
+
+Now the two first PC's capture almost 70 percent of the total variance! The first PC seems to measure prosperity of a country. On the left are things regarded as positive: longer life expectancy, longer education and less inequality. On the right is maternal mortality and adolescent births that can be seen as negative things. The second PC measures the proportion of females in societal institutions like parliament. This PC is orthogonal with the first PC, meaning they do not correlate with each other.
