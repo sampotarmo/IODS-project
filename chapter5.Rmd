@@ -1,0 +1,9 @@
+***
+
+# Part 6. Analysis of longitudinal data
+
+***
+
+I'm sick and don't have energy for anything. Fortunately, I am familiar with random effect models since I used those in my master's thesis.
+
+I have *really* enjoyed this course! The best thing I've learned is easily *the tools*, R, Git and Github. I'm quite I'll be using those a lot more from now on. I hope you do too!

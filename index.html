@@ -439,6 +439,7 @@ summary {
 <li><a href="#part-2.-the-adventure-continues-by-regression">Part 2. The adventure continues by regression!</a></li>
 <li><a href="#part-3.-regression-logistic-regression">Part 3. Regression, logistic regression</a></li>
 <li><a href="#part-5.-dimensionality-reduction-techniques">Part 5. Dimensionality reduction techniques</a></li>
+<li><a href="#part-6.-analysis-of-longitudinal-data">Part 6. Analysis of longitudinal data</a></li>
 </ul>
 </div>
 
@@ -449,7 +450,7 @@ summary {
 <hr />
 <p>*<a href="https://github.com/sampotarmo/IODS-project">Link to my repository</a></p>
 <pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Thu Nov 26 23:07:12 2020&quot;</code></pre>
+<pre><code>## [1] &quot;Thu Dec 03 21:27:27 2020&quot;</code></pre>
 <p>I’m glad I didn’t do this course on my work computer. At first there was a quite much to download, intall and update.</p>
 <p>I’ve been using R sporadically. I learn a bit, use it for a while and then forget the whole thing. And once again I have to start from zero. The most difficult thing with R for me has been the data wrangling. So I’m quite excited for the possibility to finally tackle this problem!</p>
 <p>Few useful links * 1. <a href="https://rmarkdown.rstudio.com/lesson-1.html">Markdown basics</a> * 2. <a href="https://www.r-statistics.com/tag/r-community/">R Community</a> * 3. <a href="https://rpubs.com/">Rpubs</a></p>
@@ -705,7 +706,7 @@ loss_func(class = alc_data$high_use, prob = alc_data$probability)</code></pre>
 <pre class="r"><code>library(boot)
 cv &lt;- cv.glm(data = alc_data, cost = loss_func, glmfit = m2, K = 10)
 cv$delta[1]</code></pre>
-<pre><code>## [1] 0.2303665</code></pre>
+<pre><code>## [1] 0.2277487</code></pre>
 <p>If I got it right, the number above is the <em>mean prediction error</em> for the ten sets of validation. It seems to work a little worse than the original model, but somewhat better than the model in Datacamp.</p>
 <hr />
 </div>
@@ -804,7 +805,14 @@ summary(m2)</code></pre>
 <div id="results" class="section level3">
 <h3>Results</h3>
 <p>Now the two first PC’s capture almost 70 percent of the total variance! The first PC seems to measure prosperity of a country. On the left are things regarded as positive: longer life expectancy, longer education and less inequality. On the right is maternal mortality and adolescent births that can be seen as negative things. The second PC measures the proportion of females in societal institutions like parliament. This PC is orthogonal with the first PC, meaning they do not correlate with each other.</p>
+<hr />
 </div>
+</div>
+<div id="part-6.-analysis-of-longitudinal-data" class="section level1">
+<h1>Part 6. Analysis of longitudinal data</h1>
+<hr />
+<p>I’m sick and don’t have energy for anything. Fortunately, I am familiar with random effect models since I used those in my master’s thesis.</p>
+<p>I have <em>really</em> enjoyed this course! The best thing I’ve learned is easily <em>the tools</em>, R, Git and Github. I’m quite I’ll be using those a lot more from now on. I hope you do too!</p>
 </div>
 
 
